@@ -1,7 +1,11 @@
+"use client";
+import { UseNoteContext } from "@/contexts/useContextState";
 import React from "react";
 
 const page = () => {
-  return <h1>Hello</h1>;
+  const { name } = UseNoteContext();
+  console.log(name);
+  return <h1>Hello {name}</h1>;
 };
 
 export default page;
