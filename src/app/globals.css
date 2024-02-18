@@ -1,7 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+:root {
+  --primary-color: #9459ed;
+  --primary-hover: #b390e8;
+  --primary-medium: #e4d6fa;
+  --primary-light: #ede1ff;
+  --secondary-color: #659bde;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+html {
+  font-size: 62.5%;
+}
+
+.typed-cursor {
+  font-size: 3.4rem;
+}
+
+@media screen and (max-width: 762px) {
+  html {
+    font-size: 37.5%;
+  }
 }

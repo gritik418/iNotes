@@ -1,6 +1,9 @@
 .navbar {
   height: 65px;
-  box-shadow: 1px 5px 18px 0px #9b9b9b62;
+  box-shadow: 1px 5px 18px 0px #6666667f;
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
 }
 
 .navContainer {
@@ -15,11 +18,15 @@
   height: inherit;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: #000;
 }
 
 .logo h1 {
+  font-weight: 800;
   height: 38px;
   font-size: 38px;
+  margin-left: 4px;
   margin-bottom: 0;
   font-family: "Alkatra", system-ui;
 }
@@ -31,15 +38,22 @@
   align-items: center;
 }
 
+.link {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
 .navItem {
-  font-size: 24px;
+  font-size: 18px;
+  font-weight: 600;
   list-style: none;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 3px 14px;
+  padding: 6px 14px;
   display: flex;
-  border-radius: 15px;
+  border-radius: 10px;
   align-items: center;
+  justify-content: center;
   position: relative;
 }
 
@@ -49,7 +63,7 @@
   border-radius: 2px;
   bottom: 0;
   left: 0;
-  background-color: #000;
+  background-color: var(--primary-color);
   width: 100%;
   display: block;
   position: absolute;
@@ -63,13 +77,12 @@
 }
 
 .navItemBg {
-  background-color: rgb(208, 209, 210);
+  background-color: var(--primary-light);
   transition: all 0.3s;
 }
 
 .navItemBg:hover {
-  animation: borderBlink 0.6s infinite ease-in-out;
-  background-color: rgb(189, 189, 189);
+  background-color: var(--primary-medium);
 }
 
 .navItemBg::before {
@@ -81,15 +94,60 @@
 }
 
 .icon {
-  padding-bottom: 5px;
+  padding-bottom: 1px;
   margin-right: 8px;
 }
 
-@keyframes borderBlink {
-  from {
-    border: 0px solid rgb(167, 167, 167);
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.drawerMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawerItem {
+  width: 200px;
+  border-radius: 12px;
+  padding: 5px 8px 5px 14px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: var(--primary-color);
+}
+
+.drawerItem:hover {
+  background-color: var(--primary-light);
+}
+
+.drawerIcon {
+  padding-bottom: 3px;
+  padding-right: 13px;
+}
+
+.btnBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeBtn {
+  margin: 15px;
+  font-size: 34px;
+  cursor: pointer;
+  justify-self: right;
+}
+
+@media screen and (max-width: 1000px) {
+  .navList {
+    display: none;
   }
-  to {
-    border: 2px solid rgb(166, 166, 166);
+  .hamburger {
+    display: flex;
   }
 }

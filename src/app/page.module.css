@@ -1,0 +1,102 @@
+.mainSection {
+  min-height: 680px;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.204),
+      rgba(255, 255, 255, 0.185)
+    ),
+    url("/images/notes-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.group {
+  min-height: 680px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heading {
+  max-width: 900px;
+  width: 90%;
+  text-align: center;
+  font-size: 4.2rem;
+  font-weight: bold;
+  margin-bottom: 45px;
+}
+
+.richText {
+  font-size: 4.8rem;
+  margin: 0 8px;
+  color: var(--primary-color);
+}
+
+.typedContainer {
+  padding: 15px;
+  max-width: 100%;
+  display: inline;
+  text-align: center;
+}
+
+.typedStrings {
+  font-size: 3.4rem;
+}
+
+.divider {
+  background-color: #a7a6a6;
+  display: flex;
+  height: 2px;
+  width: inherit;
+  border-radius: 1px;
+  margin-top: 45px;
+}
+
+.section {
+  min-height: 400px;
+  background-image: url("/images/bg-img.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionGroup {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.info {
+  max-width: 1000px;
+  text-align: center;
+  font-size: 3.4rem;
+  line-height: 5.6rem;
+}
+
+.richText {
+  color: var(--primary-color);
+  font-size: 3.8rem;
+}
+
+.btn {
+  font-size: 2.8rem;
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 4px 22px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.icon {
+  margin-left: 16px;
+}
