@@ -6,12 +6,22 @@ import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa";
 import Link from "next/link";
 import { Url } from "next/dist/shared/lib/router/router";
-import { IconButton, useDisclosure } from "@chakra-ui/react";
+import {
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useDisclosure,
+} from "@chakra-ui/react";
 import NavbarDrawer from "./NavbarDrawer";
 import { FaHamburger } from "react-icons/fa";
 import { SlNotebook } from "react-icons/sl";
 import { LuListTodo } from "react-icons/lu";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { FaRegUser } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 
 export type NavItem = {
   key: Number;
@@ -23,6 +33,8 @@ export type NavItem = {
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  const pathName = usePathname();
 
   const navItems: NavItem[] = [
     {
@@ -71,6 +83,10 @@ const Navbar = () => {
                 : styles.navItem;
             return (
               <Link
+                style={{
+                  fontWeight: `${pathName === item.href ? "bolder" : "400"}`,
+                  fontSize: `${pathName === item.href ? "22px" : "18px"}`,
+                }}
                 className={`${styles.link} ${useClass}`}
                 key={item.key as React.Key}
                 href={item.href as Url}>
@@ -79,6 +95,39 @@ const Navbar = () => {
               </Link>
             );
           })}
+          {
+            <li className={styles.listItem}>
+              <span className={styles.icon}></span>
+              <Menu>
+                <MenuButton className={styles.menuBtn}>
+                  <Avatar
+                    bg={"#9459ed"}
+                    color={"white"}
+                    size={"lg"}
+                    icon={<FaRegUser className={styles.avatarIcon} />}
+                    className={styles.avatar}
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem className={styles.menuItem}>
+                    <Image
+                      width={40}
+                      height={40}
+                      className={styles.menuImage}
+                      src="/images/bg-img.jpg"
+                      alt="Fluffybuns the destroyer"
+                    />
+                    <span>Your Profile</span>
+                  </MenuItem>
+
+                  <MenuItem className={styles.menuItem}>
+                    <MdLogout className={styles.menuImage} />
+                    <span>Logout</span>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </li>
+          }
         </ul>
         {/* @ts-ignore */}
         <span className={styles.hamburger} ref={btnRef} onClick={onOpen}>

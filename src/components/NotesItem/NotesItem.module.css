@@ -1,0 +1,31 @@
+.container {
+  border-radius: 16px;
+  background-color: #eee;
+  padding: 16px;
+  position: relative;
+  margin: 0 12px;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.label {
+  font-size: 22px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: var(--primary-color);
+  transform: translate(8px, -65%);
+  padding: 1px 8px;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.content {
+  height: 180px;
+  font-size: 18px;
+  overflow-y: scroll;
+  font-weight: 300;
+}

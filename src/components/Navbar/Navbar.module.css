@@ -106,9 +106,16 @@
   color: var(--primary-color);
 }
 
+.drawerContainer {
+  min-width: 350px;
+  max-width: 450px;
+}
+
 .drawerMenu {
   display: flex;
   flex-direction: column;
+  width: 90%;
+  max-width: 400px;
 }
 
 .drawerItem {
@@ -131,6 +138,10 @@
   padding-right: 13px;
 }
 
+.listItem {
+  list-style: none;
+}
+
 .btnBox {
   width: 100%;
   display: flex;
@@ -144,11 +155,39 @@
   justify-self: right;
 }
 
+.menuItem {
+  font-size: 2rem;
+  padding: 3px 18px !important;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  background-color: #000;
+}
+
+.avatarIcon {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.menuImage {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
 @media screen and (max-width: 1000px) {
   .navList {
     display: none;
   }
   .hamburger {
     display: flex;
+  }
+}
+
+@media screen and (max-width: 368px) {
+  .drawerContainer {
+    min-width: 90%;
   }
 }

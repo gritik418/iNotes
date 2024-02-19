@@ -1,11 +1,16 @@
 "use client";
-import { UseNoteContext } from "@/contexts/useContextState";
+import AuthContainer from "@/components/AuthContainer/AuthContainer";
+import AuthContent from "@/components/AuthContent/AuthContent";
 import React from "react";
 
-const page = () => {
-  const { name } = UseNoteContext();
-  console.log(name);
-  return <h1>Hello {name}</h1>;
+const SignUp = () => {
+  return (
+    <div className="container">
+      <AuthContainer>
+        <AuthContent title={"Sign Up"} />
+      </AuthContainer>
+    </div>
+  );
 };
 
-export default page;
+export default SignUp;

@@ -1,0 +1,50 @@
+.container {
+  background-color: var(--primary-color);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 2.4rem;
+  color: #fff;
+}
+
+.image {
+  margin-right: 18px;
+}
+
+.logo span {
+  font-size: 2rem;
+  margin-left: 26px;
+  display: flex;
+  align-items: center;
+  color: #eee;
+}
+
+.copy {
+  margin-right: 8px;
+}
+
+.links {
+  color: #fff;
+  font-size: 3rem;
+  display: flex;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:not(:last-child) {
+  margin-right: 18px;
+}

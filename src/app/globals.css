@@ -24,7 +24,7 @@ html {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 4px;
 }
 
 /* Track */
@@ -46,6 +46,6 @@ html {
 
 @media screen and (max-width: 762px) {
   html {
-    font-size: 37.5%;
+    font-size: 50%;
   }
 }

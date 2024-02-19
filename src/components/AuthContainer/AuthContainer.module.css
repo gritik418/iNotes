@@ -1,0 +1,6 @@
+.container {
+  padding-top: 115px;
+  display: grid;
+  width: 100%;
+  place-items: center;
+}

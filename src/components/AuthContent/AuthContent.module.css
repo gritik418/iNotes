@@ -1,0 +1,77 @@
+.container {
+  padding: 3rem;
+  width: 90%;
+  max-width: 600px;
+}
+
+.heading {
+  font-size: 3.4rem;
+  font-weight: 700;
+}
+
+.para {
+  font-size: 1.6rem;
+  color: #666;
+  margin-bottom: 22px;
+}
+
+.link {
+  font-size: 1.8rem;
+  color: #222;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.inputGroup {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 2rem;
+}
+
+.input {
+  border: 2px solid #bbb;
+  border-radius: 8px;
+  margin-top: 6px;
+  height: 35px;
+  padding: 1px 8px;
+  font-size: 1.8rem;
+  outline: 0;
+}
+
+.input:focus {
+  border: 2px solid #777;
+}
+
+.forgot {
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  margin-top: 4px;
+  justify-content: flex-end;
+}
+
+.buttonGroup {
+  margin-top: 4.2rem;
+}
+
+.btn {
+  background-color: #222;
+  width: 100%;
+  color: #fff;
+  font-size: 2.4rem;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 8px;
+}
+
+.icon {
+  color: #fff;
+  margin-left: 18px;
+  font-size: 2.6rem;
+}
