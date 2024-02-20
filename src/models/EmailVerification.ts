@@ -12,7 +12,7 @@ const EmailVerificationSchema = new Schema({
     type: String,
     required: true,
   },
-  createdAt: { type: Date, expires: "2m", default: Date.now },
+  createdAt: { type: Date, expires: "5m", default: Date.now },
 });
 
 EmailVerificationSchema.pre("save", async function () {

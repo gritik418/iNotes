@@ -4,8 +4,11 @@ import vine, { errors } from "@vinejs/vine";
 import { NextRequest, NextResponse } from "next/server";
 import SignupSchema, { SignupSchemaType } from "@/validators/SignupSchema";
 import ErrorReporter from "@/validators/ErrorReporter";
+import EmailVerification from "@/models/EmailVerification";
+import { v4 as uuidv4 } from "uuid";
+import sendEmail from "@/helpers/sendEmail";
 
-type UserType = {
+export type UserType = {
   first_name: String;
   last_name?: String;
   email: String;
@@ -41,7 +44,17 @@ export async function POST(request: NextRequest) {
     }
 
     const user = new User(output);
-    await user.save();
+    const savedUser = await user.save();
+    const token = uuidv4();
+
+    const verification = new EmailVerification({
+      userId: savedUser._id,
+      token: token,
+    });
+
+    await verification.save();
+
+    await sendEmail({ email: output.email });
 
     return NextResponse.json(
       { message: "Email sent.", success: true, status: 200 },

@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import Head from "next/head";
 import Footer from "@/components/Footer/Footer";
 
+import { ToastContainer, toast } from "react-toastify";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -50,7 +52,8 @@ export default function RootLayout({
           <ContextProvider>
             <Navbar />
             {children}
-            {/* <Footer /> */}
+            <ToastContainer />
+            <Footer />
           </ContextProvider>
         </ChakraProvider>
       </body>

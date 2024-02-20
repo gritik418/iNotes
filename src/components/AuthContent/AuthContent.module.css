@@ -28,6 +28,16 @@
   flex-direction: column;
 }
 
+.group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nameGroup {
+  flex-direction: column;
+  width: 45%;
+}
+
 .label {
   font-size: 2rem;
 }
@@ -44,6 +54,13 @@
 
 .input:focus {
   border: 2px solid #777;
+}
+
+.error {
+  color: red;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 4px;
 }
 
 .forgot {
