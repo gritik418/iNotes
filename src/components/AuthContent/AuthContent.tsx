@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import styles from "./AuthContent.module.css";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";

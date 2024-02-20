@@ -50,10 +50,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ChakraProvider>
           <ContextProvider>
-            <Navbar />
             {children}
             <ToastContainer />
-            <Footer />
           </ContextProvider>
         </ChakraProvider>
       </body>

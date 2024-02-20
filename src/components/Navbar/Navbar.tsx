@@ -22,16 +22,20 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import { UseUserContext } from "@/contexts/useContextState";
 
 export type NavItem = {
   key: Number;
   name: String;
   icon?: ReactElement;
   href: String;
+  display: boolean;
 };
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isLoggedIn } = UseUserContext();
+
   const btnRef = useRef();
 
   const pathName = usePathname();
@@ -42,30 +46,35 @@ const Navbar = () => {
       name: "Home",
       icon: <IoHome />,
       href: "/",
+      display: true,
     },
     {
       key: 1,
       name: "Notes",
       href: "/notes",
       icon: <SlNotebook />,
+      display: true,
     },
     {
       key: 2,
       name: "To-do",
       href: "/todo",
       icon: <LuListTodo />,
+      display: true,
     },
     {
       key: 3,
       icon: <FiLogIn />,
       name: "Login",
       href: "/login",
+      display: isLoggedIn ? false : true,
     },
     {
       key: 4,
       icon: <FaUserPlus />,
       name: "Sign Up",
       href: "/signup",
+      display: isLoggedIn ? false : true,
     },
   ];
   return (
@@ -81,21 +90,24 @@ const Navbar = () => {
               item.name === "Sign Up"
                 ? `${styles.navItemBg} ${styles.navItem}`
                 : styles.navItem;
-            return (
-              <Link
-                style={{
-                  fontWeight: `${pathName === item.href ? "bolder" : "400"}`,
-                  fontSize: `${pathName === item.href ? "22px" : "18px"}`,
-                }}
-                className={`${styles.link} ${useClass}`}
-                key={item.key as React.Key}
-                href={item.href as Url}>
-                <span className={styles.icon}>{item.icon}</span>
-                {item.name}
-              </Link>
-            );
+            if (item.display) {
+              return (
+                <Link
+                  style={{
+                    fontWeight: `${pathName === item.href ? "bolder" : "400"}`,
+                    fontSize: `${pathName === item.href ? "22px" : "18px"}`,
+                  }}
+                  className={`${styles.link} ${useClass}`}
+                  key={item.key as React.Key}
+                  href={item.href as Url}>
+                  <span className={styles.icon}>{item.icon}</span>
+                  {item.name}
+                </Link>
+              );
+            }
+            return;
           })}
-          {
+          {isLoggedIn && (
             <li className={styles.listItem}>
               <span className={styles.icon}></span>
               <Menu>
@@ -127,7 +139,7 @@ const Navbar = () => {
                 </MenuList>
               </Menu>
             </li>
-          }
+          )}
         </ul>
         {/* @ts-ignore */}
         <span className={styles.hamburger} ref={btnRef} onClick={onOpen}>

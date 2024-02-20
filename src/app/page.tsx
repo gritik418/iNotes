@@ -6,10 +6,11 @@ import Typed from "typed.js";
 import { useEffect, useRef } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   const el = useRef(null);
-
   const router = useRouter();
 
   const redirectTo = (link: string) => {
@@ -47,6 +48,7 @@ export default function Home() {
 
   return (
     <>
+      <Navbar />
       <main className={styles.mainSection}>
         <div className="container">
           <div className={styles.group}>
@@ -100,6 +102,7 @@ export default function Home() {
           </button>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
