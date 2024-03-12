@@ -17,10 +17,6 @@ const NoteSchema = new Schema(
     content: {
       type: String,
     },
-    isTemporarilyDeleted: {
-      type: Boolean,
-      default: false,
-    },
   },
   { timestamps: true }
 );

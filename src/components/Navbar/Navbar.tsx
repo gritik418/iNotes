@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactElement, useRef } from "react";
+import React, { ReactElement, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import { IoHome } from "react-icons/io5";
 import { FiLogIn } from "react-icons/fi";
@@ -22,7 +22,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
-import { UseUserContext } from "@/contexts/useContextState";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "@/features/user/userSlice";
 
 export type NavItem = {
   key: Number;
@@ -34,12 +35,11 @@ export type NavItem = {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isLoggedIn } = UseUserContext();
 
   const btnRef = useRef();
-
   const pathName = usePathname();
 
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const navItems: NavItem[] = [
     {
       key: 0,
@@ -77,6 +77,26 @@ const Navbar = () => {
       display: isLoggedIn ? false : true,
     },
   ];
+
+  const userData = { avatar: "" };
+  const logout = () => {
+    //   setIsLoggedIn(false);
+  };
+
+  // const user = async () => {
+  //   const response = await getUser();
+  //   if (response.success) {
+  //     setIsLoggedIn(true);
+  //     setUserData(response.user);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     return;
+  //   }
+  //   user();
+  // }, [isLoggedIn]);
   return (
     <nav className={styles.navbar}>
       <div className={`${"container"} ${styles.navContainer}`}>
@@ -107,7 +127,7 @@ const Navbar = () => {
             }
             return;
           })}
-          {isLoggedIn && (
+          {isLoggedIn && userData && (
             <li className={styles.listItem}>
               <span className={styles.icon}></span>
               <Menu>
@@ -126,13 +146,13 @@ const Navbar = () => {
                       width={40}
                       height={40}
                       className={styles.menuImage}
-                      src="/images/bg-img.jpg"
+                      src={userData?.avatar}
                       alt="Fluffybuns the destroyer"
                     />
                     <span>Your Profile</span>
                   </MenuItem>
 
-                  <MenuItem className={styles.menuItem}>
+                  <MenuItem onClick={logout} className={styles.menuItem}>
                     <MdLogout className={styles.menuImage} />
                     <span>Logout</span>
                   </MenuItem>

@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/contexts/UserContext.js", "src/contexts/ContextProvider.js", "src/contexts/NoteContext.js", "src/contexts/NoteContext.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/contexts/UserContext.js", "src/contexts/ContextProvider.js", "src/contexts/NoteContext.js", "src/contexts/NoteContext.js", "src/app/api/auth/[...nextauth]/authOptions.ts", "src/providers/NextAuthProvider.js"],
   "exclude": ["node_modules"]
 }

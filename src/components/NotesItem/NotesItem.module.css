@@ -29,3 +29,17 @@
   overflow-y: scroll;
   font-weight: 300;
 }
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.leftIcon {
+  margin-right: 12px;
+}
+
+.icon {
+  font-size: 22px;
+  cursor: pointer;
+}

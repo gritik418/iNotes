@@ -1,7 +1,6 @@
 import {
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
 } from "@chakra-ui/react";
@@ -31,24 +30,28 @@ const NavbarDrawer = ({ isOpen, onClose, btnRef, navItems }: any) => {
           <DrawerBody style={{ marginTop: "20px" }}>
             <ul className={styles.drawerMenu}>
               {navItems.map((item: NavItem) => {
-                return (
-                  <Link
-                    style={{
-                      fontWeight: `${
-                        pathName === item.href ? "bolder" : "400"
-                      }`,
-                      fontSize: `${pathName === item.href ? "22px" : "18px"}`,
-                      backgroundColor: `${
-                        pathName === item.href ? "var(--primary-medium)" : ""
-                      }`,
-                    }}
-                    className={styles.drawerItem}
-                    key={item.key as React.Key}
-                    href={item.href as Url}>
-                    <span className={styles.drawerIcon}>{item.icon}</span>
-                    {item.name}
-                  </Link>
-                );
+                if (item.display) {
+                  return (
+                    <Link
+                      style={{
+                        fontWeight: `${
+                          pathName === item.href ? "bolder" : "400"
+                        }`,
+                        fontSize: `${pathName === item.href ? "22px" : "18px"}`,
+                        backgroundColor: `${
+                          pathName === item.href ? "var(--primary-medium)" : ""
+                        }`,
+                      }}
+                      className={styles.drawerItem}
+                      key={item.key as React.Key}
+                      href={item.href as Url}>
+                      <span className={styles.drawerIcon}>{item.icon}</span>
+                      {item.name}
+                    </Link>
+                  );
+                } else {
+                  return;
+                }
               })}
             </ul>
           </DrawerBody>

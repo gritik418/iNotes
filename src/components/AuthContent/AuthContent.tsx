@@ -1,55 +1,36 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import styles from "./AuthContent.module.css";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { UseUserContext } from "@/contexts/useContextState";
-import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  selectIsLoggedIn,
+  userLoginAsync,
+  userSignupAsync,
+} from "@/features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const AuthContent = ({ title }: { title: string }) => {
+  const router = useRouter();
   const [userData, setUserData] = useState<any>({});
   const [errors, setErrors] = useState<any>({});
-  const { userSignUp } = UseUserContext();
+  const dispatch = useDispatch<any>();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const login = () => {
-    console.log("login");
+  if (isLoggedIn) {
+    router.push("/");
+  }
+
+  const login = async () => {
+    setErrors({});
+    dispatch(userLoginAsync(userData));
   };
 
   const signUp = async () => {
     setErrors({});
-    const data = await userSignUp(userData);
-
-    if (Object.keys(data).includes("errors")) {
-      setErrors(data.errors);
-      return;
-    }
-
-    if (data.success) {
-      toast.success(data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-    } else {
-      toast.error(data.message, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-    }
+    dispatch(userSignupAsync(userData));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

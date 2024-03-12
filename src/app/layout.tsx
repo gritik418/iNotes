@@ -1,14 +1,10 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ContextProvider from "@/contexts/ContextProvider";
-import Navbar from "@/components/Navbar/Navbar";
 import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.css";
-import Head from "next/head";
-import Footer from "@/components/Footer/Footer";
-
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import ReduxProvider from "@/providers/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <link
           rel="apple-touch-icon"
           sizes="144x144"
@@ -46,14 +42,16 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
-      </Head>
+      </head>
       <body className={inter.className}>
-        <ChakraProvider>
-          <ContextProvider>
-            {children}
-            <ToastContainer />
-          </ContextProvider>
-        </ChakraProvider>
+        <div>
+          <ReduxProvider>
+            <ChakraProvider>
+              {children}
+              <ToastContainer />
+            </ChakraProvider>
+          </ReduxProvider>
+        </div>
       </body>
     </html>
   );

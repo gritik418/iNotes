@@ -21,7 +21,7 @@ const Footer = () => {
             iNotes
             <span>
               <FaRegCopyright className={styles.copy} />
-              2024 iNotes
+              2024 | iNotes
             </span>
           </div>
           <div className={styles.links}>

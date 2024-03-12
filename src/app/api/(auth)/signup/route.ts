@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
           status: 400,
           success: false,
         },
-        { status: 500 }
+        { status: 400 }
       );
     }
     return NextResponse.json(
