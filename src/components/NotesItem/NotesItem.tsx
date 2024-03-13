@@ -7,9 +7,19 @@ export type NoteType = {
   title: string;
   label: string;
   content: string;
+  _id: string;
 };
 
-const NotesItem = ({ note }: { note: NoteType }) => {
+const NotesItem = ({
+  note,
+  onOpen,
+  setNoteId,
+}: {
+  note: NoteType;
+  onOpen: any;
+  setNoteId: any;
+}) => {
+  setNoteId(note._id);
   return (
     <div className={styles.container}>
       <p className={styles.title}>{note.title}</p>
@@ -17,7 +27,10 @@ const NotesItem = ({ note }: { note: NoteType }) => {
       <p className={styles.content}>{note.content}</p>
       <div className={styles.actions}>
         <span>
-          <CiEdit className={`${styles.icon} ${styles.leftIcon}`} />
+          <CiEdit
+            className={`${styles.icon} ${styles.leftIcon}`}
+            onClick={onOpen}
+          />
         </span>
         <span>
           <MdDelete className={styles.icon} />

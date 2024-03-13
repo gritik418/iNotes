@@ -5,6 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.css";
 import { ToastContainer } from "react-toastify";
 import ReduxProvider from "@/providers/ReduxProvider";
+import Authenticate from "@/components/Authenticate/Authenticate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +47,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div>
           <ReduxProvider>
+            <Authenticate />
             <ChakraProvider>
               {children}
               <ToastContainer />

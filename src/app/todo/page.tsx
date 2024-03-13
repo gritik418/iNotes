@@ -8,7 +8,7 @@ const Todo = () => {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: "60px" }}>
+      <div style={{ paddingTop: "60px", minHeight: "95vh" }}>
         <div className="container">
           <TodoInput />
           <TodoContainer />

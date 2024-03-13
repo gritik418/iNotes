@@ -2,6 +2,12 @@
 import React, { ChangeEvent, useState } from "react";
 import styles from "./NotesInput.module.css";
 import { IoAdd } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { addNotesAsync } from "@/features/notes/notesSlice";
+import { selectIsLoggedIn } from "@/features/user/userSlice";
+import { useRouter } from "next/navigation";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type NotesDataType = {
   label: string;
@@ -15,6 +21,10 @@ const NotesInput = () => {
     label: "General",
     title: "",
   });
+  const dispatch = useDispatch<any>();
+  const router = useRouter();
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,8 +34,29 @@ const NotesInput = () => {
   };
 
   const handleAddNote = () => {
-    // setNotes([...notes, notesData]);
-    // addNote(notesData);
+    if (isLoggedIn) {
+      dispatch(addNotesAsync(notesData));
+      setNotesData({
+        content: "",
+        label: "General",
+        title: "",
+      });
+    } else {
+      toast.error("Please Login.", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setTimeout(() => {
+        router.push("/login");
+      }, 1200);
+    }
   };
 
   return (

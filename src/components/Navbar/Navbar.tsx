@@ -23,7 +23,7 @@ import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/features/user/userSlice";
+import { selectIsLoggedIn, selectUser } from "@/features/user/userSlice";
 
 export type NavItem = {
   key: Number;
@@ -38,6 +38,8 @@ const Navbar = () => {
 
   const btnRef = useRef();
   const pathName = usePathname();
+
+  const userData = useSelector(selectUser);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navItems: NavItem[] = [
@@ -78,25 +80,9 @@ const Navbar = () => {
     },
   ];
 
-  const userData = { avatar: "" };
   const logout = () => {
     //   setIsLoggedIn(false);
   };
-
-  // const user = async () => {
-  //   const response = await getUser();
-  //   if (response.success) {
-  //     setIsLoggedIn(true);
-  //     setUserData(response.user);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     return;
-  //   }
-  //   user();
-  // }, [isLoggedIn]);
   return (
     <nav className={styles.navbar}>
       <div className={`${"container"} ${styles.navContainer}`}>
@@ -132,13 +118,19 @@ const Navbar = () => {
               <span className={styles.icon}></span>
               <Menu>
                 <MenuButton className={styles.menuBtn}>
-                  <Avatar
+                 {userData?.avatar ?  <Avatar
                     bg={"#9459ed"}
                     color={"white"}
                     size={"lg"}
-                    icon={<FaRegUser className={styles.avatarIcon} />}
+                    icon={<Image src={userData.avatar} height={50} width={50} alt="profile" />}
                     className={styles.avatar}
-                  />
+                  />: <Avatar
+                  bg={"#9459ed"}
+                  color={"white"}
+                  size={"lg"}
+                  icon={<FaRegUser className={styles.avatarIcon} />}
+                  className={styles.avatar}
+                />}
                 </MenuButton>
                 <MenuList>
                   <MenuItem className={styles.menuItem}>

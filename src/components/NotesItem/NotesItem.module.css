@@ -5,6 +5,8 @@
   position: relative;
   margin: 0 12px;
   margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -24,10 +26,11 @@
 }
 
 .content {
-  height: 180px;
-  font-size: 18px;
+  height: 200px;
   overflow-y: scroll;
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 15px;
+  flex-grow: 1;
 }
 
 .actions {

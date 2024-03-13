@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
     });
 
     const user = await User.findOne({ email: output.email });
+
     if (user && user.email_verified) {
       const verify = await bcrypt.compare(output.password, user.password);
       if (!verify) {
@@ -53,7 +54,6 @@ export async function POST(request: NextRequest) {
       );
 
       response.cookies.set("_at", token, {
-        httpOnly: true,
         expires: Date.now() + 24 * 60 * 60 * 1000,
       });
 

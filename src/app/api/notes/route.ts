@@ -25,11 +25,12 @@ export async function POST(request: NextRequest) {
         content: data?.content,
       });
 
-      await newNote.save();
+      const savedNote = await newNote.save();
 
       return NextResponse.json(
         {
           success: true,
+          note: savedNote,
           status: 200,
           message: "Note added.",
         },

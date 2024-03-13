@@ -1,65 +1,51 @@
-import { LoginSchemaType } from "@/validators/LoginSchema";
-import { SignupSchemaType } from "@/validators/SignupSchema";
+import { NotesSchemaType } from "@/validators/NotesSchema";
 import axios from "axios";
 
-export const userLogin = async (userData: LoginSchemaType) => {
+export const addNote = async (noteData: NotesSchemaType) => {
   try {
     const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/login`,
-      userData,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes`,
+      noteData,
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-
-    console.log(data);
-
     return data;
   } catch (error: any) {
-    console.log(error);
     return error.response.data;
   }
 };
 
-export const userSignup = async (userData: SignupSchemaType) => {
-  try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/signup`,
-      userData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    console.log(data);
-
-    return data;
-  } catch (error: any) {
-    console.log(error);
-    return error.response.data;
-  }
-};
-
-export const getUser = async () => {
+export const getNotes = async () => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/user`,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes`,
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-
-    console.log(data);
-
     return data;
   } catch (error: any) {
-    console.log(error);
+    return error.response.data;
+  }
+};
+
+export const getNoteById = async (id: string) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return data;
+  } catch (error: any) {
     return error.response.data;
   }
 };
