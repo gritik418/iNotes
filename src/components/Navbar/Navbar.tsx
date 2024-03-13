@@ -19,7 +19,7 @@ import { FaHamburger } from "react-icons/fa";
 import { SlNotebook } from "react-icons/sl";
 import { LuListTodo } from "react-icons/lu";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +45,7 @@ const Navbar = () => {
   const btnRef = useRef();
   const pathName = usePathname();
   const dispatch = useDispatch<any>();
+  const router = useRouter();
 
   const userData = useSelector(selectUser);
 
@@ -95,10 +96,11 @@ const Navbar = () => {
   }
 
   const logout = () => {
-    // deleteAllCookies();
+    deleteAllCookies();
     dispatch(resetNotes());
     dispatch(resetTodos());
     dispatch(resetUser());
+    router.push("/");
   };
   return (
     <nav className={styles.navbar}>
