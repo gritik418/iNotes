@@ -22,8 +22,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn, selectUser } from "@/features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  resetUser,
+  selectIsLoggedIn,
+  selectUser,
+} from "@/features/user/userSlice";
+import { resetTodos } from "@/features/todo/todoSlice";
+import { resetNotes } from "@/features/notes/notesSlice";
 
 export type NavItem = {
   key: Number;
@@ -38,6 +44,7 @@ const Navbar = () => {
 
   const btnRef = useRef();
   const pathName = usePathname();
+  const dispatch = useDispatch<any>();
 
   const userData = useSelector(selectUser);
 
@@ -80,8 +87,18 @@ const Navbar = () => {
     },
   ];
 
+  function deleteAllCookies() {
+    var c = document.cookie.split("; ");
+    for (let i in c)
+      document.cookie =
+        /^[^=]+/.exec(c[i])![0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+
   const logout = () => {
-    //   setIsLoggedIn(false);
+    // deleteAllCookies();
+    dispatch(resetNotes());
+    dispatch(resetTodos());
+    dispatch(resetUser());
   };
   return (
     <nav className={styles.navbar}>
@@ -113,46 +130,46 @@ const Navbar = () => {
             }
             return;
           })}
-          {isLoggedIn && userData && (
-            <li className={styles.listItem}>
-              <span className={styles.icon}></span>
-              <Menu>
-                <MenuButton className={styles.menuBtn}>
-                 {userData?.avatar ?  <Avatar
+        </ul>
+        {isLoggedIn && userData && (
+          <li className={styles.listItem} style={{ margin: "0 18px" }}>
+            <span className={styles.icon}></span>
+            <Menu>
+              <MenuButton className={styles.menuBtn}>
+                {userData?.avatar ? (
+                  <Avatar
                     bg={"#9459ed"}
                     color={"white"}
                     size={"lg"}
-                    icon={<Image src={userData.avatar} height={50} width={50} alt="profile" />}
+                    icon={
+                      <Image
+                        src={userData.avatar}
+                        height={50}
+                        width={50}
+                        alt="profile"
+                      />
+                    }
                     className={styles.avatar}
-                  />: <Avatar
-                  bg={"#9459ed"}
-                  color={"white"}
-                  size={"lg"}
-                  icon={<FaRegUser className={styles.avatarIcon} />}
-                  className={styles.avatar}
-                />}
-                </MenuButton>
-                <MenuList>
-                  <MenuItem className={styles.menuItem}>
-                    <Image
-                      width={40}
-                      height={40}
-                      className={styles.menuImage}
-                      src={userData?.avatar}
-                      alt="Fluffybuns the destroyer"
-                    />
-                    <span>Your Profile</span>
-                  </MenuItem>
-
-                  <MenuItem onClick={logout} className={styles.menuItem}>
-                    <MdLogout className={styles.menuImage} />
-                    <span>Logout</span>
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </li>
-          )}
-        </ul>
+                  />
+                ) : (
+                  <Avatar
+                    bg={"#9459ed"}
+                    color={"white"}
+                    size={"lg"}
+                    icon={<FaRegUser className={styles.avatarIcon} />}
+                    className={styles.avatar}
+                  />
+                )}
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={logout} className={styles.menuItem}>
+                  <MdLogout className={styles.menuImage} />
+                  <span>Logout</span>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </li>
+        )}
         {/* @ts-ignore */}
         <span className={styles.hamburger} ref={btnRef} onClick={onOpen}>
           <FaHamburger />

@@ -1,4 +1,7 @@
-import { getNoteByIdAsync, selectNoteById } from "@/features/notes/notesSlice";
+import {
+  selectUpdateLoading,
+  updateNoteByIdAsync,
+} from "@/features/notes/notesSlice";
 import {
   Button,
   Input,
@@ -10,31 +13,41 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+type NoteType = {
+  title: string;
+  label: string;
+  content: string;
+  _id: string;
+};
 
 type PropsType = {
   isOpen: boolean;
   onClose: () => void;
-  id: string;
+  note: NoteType;
 };
 
-const NoteModal = ({ id, isOpen, onClose }: PropsType) => {
-  const [noteData, setNoteData] = useState<any>({
-    content: "",
-    label: "General",
-    title: "",
-  });
+const NoteModal = ({ note, isOpen, onClose }: PropsType) => {
+  const [noteData, setNoteData] = useState<NoteType>(note);
   const dispatch = useDispatch<any>();
-  const note = useSelector(selectNoteById);
 
-  useEffect(() => {
-    dispatch(getNoteByIdAsync(id));
-  }, [dispatch, id]);
+  const loading = useSelector(selectUpdateLoading);
 
-  useEffect(() => {
-    setNoteData(note);
-  }, [note]);
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setNoteData({
+      ...noteData,
+      [name]: value,
+    });
+  };
+
+  const handleUpdate = () => {
+    dispatch(updateNoteByIdAsync({ id: note._id, noteData }));
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -53,6 +66,9 @@ const NoteModal = ({ id, isOpen, onClose }: PropsType) => {
                 padding: "3px 8px",
                 height: "3.8rem",
               }}
+              name="label"
+              onChange={handleChange}
+              value={noteData.label}
               id="label"
             />
             <label
@@ -61,11 +77,14 @@ const NoteModal = ({ id, isOpen, onClose }: PropsType) => {
               Title
             </label>
             <Input
+              value={noteData.title}
               style={{
                 fontSize: "2rem",
                 padding: "3px 8px",
                 height: "3.8rem",
               }}
+              name="title"
+              onChange={handleChange}
               id="title"
             />
             <label
@@ -74,7 +93,10 @@ const NoteModal = ({ id, isOpen, onClose }: PropsType) => {
               Content
             </label>
             <Textarea
+              value={noteData.content}
               rows={6}
+              name="content"
+              onChange={handleChange}
               style={{
                 fontSize: "2rem",
                 padding: "3px 8px",
@@ -91,11 +113,13 @@ const NoteModal = ({ id, isOpen, onClose }: PropsType) => {
           </Button>
           <Button
             size={"lg"}
+            onClick={handleUpdate}
             style={{
               backgroundColor: "var(--primary-color)",
+              opacity: `${loading ? "0.5" : "1"}`,
               color: "#fff",
             }}>
-            Update
+            {loading ? "Updating..." : "Update"}
           </Button>
         </ModalFooter>
       </ModalContent>

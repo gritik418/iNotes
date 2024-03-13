@@ -2,6 +2,7 @@ import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 import { verify } from "jsonwebtoken";
 import Notes from "@/models/Notes";
+import connectToDB from "@/database/mongo.config";
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,6 +11,7 @@ export async function POST(request: NextRequest) {
     const verifyToken: any = verify(authToken!, process.env.JWT_SECRET!);
     const data = await request.json();
     if (verifyToken) {
+      await connectToDB();
       const user = await User.findOne({ email: verifyToken?.email });
 
       if (!user)
@@ -53,6 +55,7 @@ export async function GET(request: NextRequest) {
   try {
     const cookie = request.cookies.get("_at");
     const authToken = cookie?.value;
+    await connectToDB();
     const verifyToken: any = verify(authToken!, process.env.JWT_SECRET!);
     if (verifyToken) {
       const user = await User.findOne({ email: verifyToken?.email }).select({

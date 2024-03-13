@@ -1,11 +1,10 @@
-import { NotesSchemaType } from "@/validators/NotesSchema";
 import axios from "axios";
 
-export const addNote = async (noteData: NotesSchemaType) => {
+export const addTodo = async (todoData: any) => {
   try {
     const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes`,
-      noteData,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/todo`,
+      todoData,
       {
         headers: {
           "Content-Type": "application/json",
@@ -18,10 +17,10 @@ export const addNote = async (noteData: NotesSchemaType) => {
   }
 };
 
-export const getNotes = async () => {
+export const getTodos = async () => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes`,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/todo`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -34,11 +33,11 @@ export const getNotes = async () => {
   }
 };
 
-export const updateNoteById = async (id: string, noteData: any) => {
+export const completeTodo = async (id: string, todoData: any) => {
   try {
-    const { data } = await axios.put(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes/${id}`,
-      noteData,
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/todo/${id}`,
+      todoData,
       {
         headers: {
           "Content-Type": "application/json",
@@ -51,10 +50,10 @@ export const updateNoteById = async (id: string, noteData: any) => {
   }
 };
 
-export const deleteNoteById = async (id: string) => {
+export const deleteTodoById = async (id: string) => {
   try {
     const { data } = await axios.delete(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/notes/${id}`,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/todo/${id}`,
       {
         headers: {
           "Content-Type": "application/json",

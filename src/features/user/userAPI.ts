@@ -13,12 +13,8 @@ export const userLogin = async (userData: LoginSchemaType) => {
         },
       }
     );
-
-    console.log(data);
-
     return data;
   } catch (error: any) {
-    console.log(error);
     return error.response.data;
   }
 };
@@ -34,12 +30,8 @@ export const userSignup = async (userData: SignupSchemaType) => {
         },
       }
     );
-
-    console.log(data);
-
     return data;
   } catch (error: any) {
-    console.log(error);
     return error.response.data;
   }
 };
@@ -54,12 +46,8 @@ export const getUser = async () => {
         },
       }
     );
-
-    console.log(data);
-
     return data;
   } catch (error: any) {
-    console.log(error);
     return error.response.data;
   }
 };

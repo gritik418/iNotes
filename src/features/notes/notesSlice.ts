@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addNote, getNoteById, getNotes } from "./notesAPI";
+import { addNote, deleteNoteById, getNotes, updateNoteById } from "./notesAPI";
 import { NotesSchemaType } from "@/validators/NotesSchema";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
   notes: [],
-  noteById: {},
   addNoteLoading: false,
   notesLoading: false,
+  updateLoading: false,
 };
 
 export const addNotesAsync = createAsyncThunk(
@@ -24,10 +24,18 @@ export const getNotesAsync = createAsyncThunk("notes/getNotes", async () => {
   return response;
 });
 
-export const getNoteByIdAsync = createAsyncThunk(
-  "notes/getNoteById",
+export const updateNoteByIdAsync = createAsyncThunk(
+  "notes/updateNote",
+  async ({ id, noteData }: { id: string; noteData: any }) => {
+    const response = await updateNoteById(id, noteData);
+    return response;
+  }
+);
+
+export const deleteNoteByIdAsync = createAsyncThunk(
+  "notes/deleteNote",
   async (id: string) => {
-    const response = await getNoteById(id);
+    const response = await deleteNoteById(id);
     return response;
   }
 );
@@ -36,9 +44,9 @@ const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    // addToNotes: (state, action: any) => {
-    //   state.notes.unshift(action.payload as never);
-    // },
+    resetNotes(state) {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -100,15 +108,38 @@ const notesSlice = createSlice({
       .addCase(getNotesAsync.rejected, (state, action) => {
         state.notesLoading = false;
       })
-      .addCase(getNoteByIdAsync.fulfilled, (state, action) => {
+      .addCase(updateNoteByIdAsync.pending, (state, action) => {
+        state.updateLoading = true;
+      })
+      .addCase(updateNoteByIdAsync.fulfilled, (state, action) => {
+        state.updateLoading = false;
         if (action.payload.success) {
-          state.noteById = action.payload.note;
+          // @ts-ignore
+          state.notes = state.notes.map((note: any): any => {
+            if (note._id === action.payload.note._id) {
+              return action.payload.note;
+            }
+            return note;
+          });
+        }
+      })
+      .addCase(updateNoteByIdAsync.rejected, (state, action) => {
+        state.updateLoading = false;
+      })
+      .addCase(deleteNoteByIdAsync.fulfilled, (state, action) => {
+        if (action.payload.success) {
+          // @ts-ignore
+          state.notes = state.notes.filter((note: any): any => {
+            if (note._id !== action.payload.noteId) {
+              return note;
+            }
+          });
         }
       });
   },
 });
-
+export const { resetNotes } = notesSlice.actions;
 export const selectNotes = (state: any) => state.notes.notes;
-export const selectNoteById = (state: any) => state.notes.noteById;
+export const selectUpdateLoading = (state: any) => state.notes.updateLoading;
 
 export default notesSlice.reducer;

@@ -1,12 +1,12 @@
 import connectToDB from "@/database/mongo.config";
-import Notes from "@/models/Notes";
+import Todo from "@/models/Todo";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(request: NextRequest, { params }: any) {
+export async function PATCH(request: NextRequest, { params }: any) {
   try {
-    const { noteId } = params;
-    const noteData = await request.json();
-    if (!noteId) {
+    const { todoId } = params;
+    const todoData = await request.json();
+    if (!todoId) {
       return NextResponse.json(
         { success: false, status: 400, message: "Id is required." },
         { status: 400 }
@@ -14,11 +14,15 @@ export async function PUT(request: NextRequest, { params }: any) {
     }
     await connectToDB();
 
-    const updatedNote = await Notes.findByIdAndUpdate(noteId, noteData, {
-      new: true,
-    });
+    const updatedtodo = await Todo.findByIdAndUpdate(
+      todoId,
+      { $set: { isCompleted: todoData.isCompleted } },
+      {
+        new: true,
+      }
+    );
     return NextResponse.json(
-      { success: true, status: 200, note: updatedNote, message: "Updated." },
+      { success: true, status: 200, todo: updatedtodo, message: "Updated." },
       { status: 200 }
     );
   } catch (error) {
@@ -31,8 +35,8 @@ export async function PUT(request: NextRequest, { params }: any) {
 
 export async function DELETE(request: NextRequest, { params }: any) {
   try {
-    const { noteId } = params;
-    if (!noteId) {
+    const { todoId } = params;
+    if (!todoId) {
       return NextResponse.json(
         { success: false, status: 400, message: "Id is required." },
         { status: 400 }
@@ -40,10 +44,10 @@ export async function DELETE(request: NextRequest, { params }: any) {
     }
     await connectToDB();
 
-    await Notes.findByIdAndDelete(noteId);
+    await Todo.findByIdAndDelete(todoId);
 
     return NextResponse.json(
-      { success: true, status: 200, noteId: noteId, message: "Deleted." },
+      { success: true, status: 200, todoId: todoId, message: "Deleted." },
       { status: 200 }
     );
   } catch (error) {
