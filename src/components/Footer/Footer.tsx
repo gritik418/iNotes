@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import { FaLinkedinIn } from "react-icons/fa";
-import { GrInstagram } from "react-icons/gr";
 import { FaRegCopyright } from "react-icons/fa6";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -25,8 +25,9 @@ const Footer = () => {
             </span>
           </div>
           <div className={styles.links}>
-            <GrInstagram className={styles.icon} />
-            <FaLinkedinIn className={styles.icon} />
+            <Link href={"https://www.linkedin.com/in/ritik-gupta-849680251/"}>
+              <FaLinkedinIn className={styles.icon} />
+            </Link>
           </div>
         </div>
       </div>

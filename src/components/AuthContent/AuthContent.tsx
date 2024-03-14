@@ -46,7 +46,7 @@ const AuthContent = ({ title }: { title: string }) => {
     setErrors(selectedErrors);
   }, [selectedErrors]);
   return (
-    <div className={styles.container} style={{ minHeight: "90vh" }}>
+    <div className={styles.container} style={{ minHeight: "80vh" }}>
       <h1 className={styles.heading}>{title}</h1>
       {title === "Login" ? (
         <p className={styles.para}>
@@ -65,8 +65,8 @@ const AuthContent = ({ title }: { title: string }) => {
       )}
 
       {title !== "Login" && (
-        <div className={styles.group}>
-          <div className={`${styles.inputGroup} ${styles.nameGroup}`}>
+        <>
+          <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="first_name">
               First Name
             </label>
@@ -80,7 +80,7 @@ const AuthContent = ({ title }: { title: string }) => {
             />
             <span className={styles.error}>{errors.first_name}</span>
           </div>
-          <div className={`${styles.inputGroup} ${styles.nameGroup}`}>
+          <div className={styles.inputGroup}>
             <label className={styles.label} htmlFor="last_name">
               Last Name
             </label>
@@ -93,7 +93,7 @@ const AuthContent = ({ title }: { title: string }) => {
               value={userData.last_name}
             />
           </div>
-        </div>
+        </>
       )}
 
       <div className={styles.inputGroup}>

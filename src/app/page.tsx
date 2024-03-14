@@ -71,15 +71,6 @@ export default function Home() {
           title="Access & Organize your Notes from anywhere."
           image="/images/mobile.png"
         />
-
-        <span className={styles.divider}></span>
-
-        <HeroSection
-          content="Create your notes for free with iNotes anytime and anywhere, so you will never miss a task or idea again."
-          title="Never miss a task or idea again."
-          image="/images/notes.jpg"
-          reversed={true}
-        />
       </div>
 
       <div className={styles.section}></div>
