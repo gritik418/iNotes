@@ -30,6 +30,7 @@ import {
 } from "@/features/user/userSlice";
 import { resetTodos } from "@/features/todo/todoSlice";
 import { resetNotes } from "@/features/notes/notesSlice";
+import Authenticate from "../Authenticate/Authenticate";
 
 export type NavItem = {
   key: Number;
@@ -104,6 +105,7 @@ const Navbar = () => {
   };
   return (
     <nav className={styles.navbar}>
+      <Authenticate />
       <div className={`${"container"} ${styles.navContainer}`}>
         <Link href={"/"} className={styles.logo}>
           <Image src={"/images/logo.png"} alt="iNotes" width={40} height={40} />

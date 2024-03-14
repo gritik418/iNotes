@@ -6,6 +6,7 @@ import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { getTodosAsync } from "@/features/todo/todoSlice";
+import Authenticate from "@/components/Authenticate/Authenticate";
 
 const Todo = () => {
   const dispatch = useDispatch<any>();
@@ -15,6 +16,7 @@ const Todo = () => {
   }, [dispatch]);
   return (
     <>
+      <Authenticate />
       <Navbar />
       <div style={{ paddingTop: "60px", minHeight: "95vh" }}>
         <div className="container">

@@ -1,14 +1,22 @@
 "use client";
-import { getUserAsync } from "@/features/user/userSlice";
+import {
+  getUserAsync,
+  selectIsLoggedIn,
+  selectUser,
+} from "@/features/user/userSlice";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Authenticate = () => {
   const dispatch = useDispatch<any>();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
-    dispatch(getUserAsync());
-  }, []);
+    if (!isLoggedIn || !user.email) {
+      dispatch(getUserAsync());
+    }
+  }, [isLoggedIn, dispatch, user]);
 
   return <div></div>;
 };

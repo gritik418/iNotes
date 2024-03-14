@@ -8,6 +8,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import Authenticate from "@/components/Authenticate/Authenticate";
 
 export default function Home() {
   const el = useRef(null);
@@ -48,6 +49,7 @@ export default function Home() {
 
   return (
     <>
+      <Authenticate />
       <Navbar />
       <main className={styles.mainSection}>
         <div className="container">

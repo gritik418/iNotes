@@ -1,4 +1,5 @@
 "use client";
+import Authenticate from "@/components/Authenticate/Authenticate";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import NotesContainer from "@/components/NotesContainer/NotesContainer";
@@ -17,6 +18,7 @@ const Notes = () => {
   }, [dispatch]);
   return (
     <>
+      <Authenticate />
       <Navbar />
       <div
         className="container"

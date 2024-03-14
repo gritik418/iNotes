@@ -1,6 +1,7 @@
 "use client";
 import AuthContainer from "@/components/AuthContainer/AuthContainer";
 import AuthContent from "@/components/AuthContent/AuthContent";
+import Authenticate from "@/components/Authenticate/Authenticate";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import { selectIsLoggedIn } from "@/features/user/userSlice";
@@ -16,6 +17,7 @@ const Login = () => {
   }
   return (
     <>
+      <Authenticate />
       <Navbar />
       <div className="container">
         <AuthContainer>
