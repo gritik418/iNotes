@@ -13,12 +13,14 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async ({ mailOptions }: { mailOptions: any }) => {
   try {
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return false;
-      } else {
-        return true;
-      }
+    await new Promise((resolve, reject): any => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(info);
+        }
+      });
     });
   } catch (error) {
     return false;
