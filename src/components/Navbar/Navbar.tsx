@@ -47,7 +47,7 @@ const Navbar = () => {
   const dispatch = useDispatch<any>();
   const router = useRouter();
 
-  const userData = useSelector(selectUser);
+  const userData: any = useSelector(selectUser);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navItems: NavItem[] = [

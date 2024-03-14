@@ -1,4 +1,5 @@
 "use client";
+import authReducer from "@/features/auth/authSlice";
 import notesReducer from "@/features/notes/notesSlice";
 import todoReducer from "@/features/todo/todoSlice";
 import userReducer from "@/features/user/userSlice";
@@ -9,6 +10,7 @@ const store = configureStore({
     user: userReducer,
     notes: notesReducer,
     todos: todoReducer,
+    auth: authReducer,
   },
 });
 

@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AuthContent.module.css";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  selectErrors,
   selectIsLoggedIn,
+  selectLoading,
   userLoginAsync,
   userSignupAsync,
 } from "@/features/user/userSlice";
@@ -18,6 +20,8 @@ const AuthContent = ({ title }: { title: string }) => {
   const [errors, setErrors] = useState<any>({});
   const dispatch = useDispatch<any>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const loading = useSelector(selectLoading);
+  const selectedErrors = useSelector(selectErrors);
 
   if (isLoggedIn) {
     router.push("/");
@@ -37,8 +41,12 @@ const AuthContent = ({ title }: { title: string }) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+
+  useEffect(() => {
+    setErrors(selectedErrors);
+  }, [selectedErrors]);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ minHeight: "90vh" }}>
       <h1 className={styles.heading}>{title}</h1>
       {title === "Login" ? (
         <p className={styles.para}>
@@ -144,9 +152,16 @@ const AuthContent = ({ title }: { title: string }) => {
       <div className={styles.buttonGroup}>
         <button
           className={styles.btn}
+          style={{
+            opacity: `${loading ? "0.5" : "1"}`,
+          }}
           onClick={title === "Login" ? login : signUp}>
-          {title === "Login" ? "Get Started" : "Continue"}
-          <FaLongArrowAltRight className={styles.icon} />
+          {loading
+            ? "Processing..."
+            : title === "Login"
+            ? "Get Started"
+            : "Continue"}
+          {!loading && <FaLongArrowAltRight className={styles.icon} />}
         </button>
       </div>
     </div>

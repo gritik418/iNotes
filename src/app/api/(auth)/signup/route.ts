@@ -7,6 +7,7 @@ import ErrorReporter from "@/validators/ErrorReporter";
 import EmailVerification from "@/models/EmailVerification";
 import { v4 as uuidv4 } from "uuid";
 import sendEmail from "@/helpers/sendEmail";
+import verificationTemplate from "@/helpers/verificationTemplate";
 
 export type UserType = {
   first_name: String;
@@ -54,7 +55,17 @@ export async function POST(request: NextRequest) {
 
     await verification.save();
 
-    await sendEmail({ email: output.email });
+    const link = `${process.env.NEXT_PUBLIC_DOMAIN}/verify/${savedUser._id}/${token}`;
+
+    const mailOptions = {
+      from: "iNotes@official.com",
+      to: output.email,
+      subject: "Email Verification",
+      text: "Verify your Email address with the given link.",
+      html: verificationTemplate(link),
+    };
+
+    await sendEmail({ mailOptions: mailOptions });
 
     return NextResponse.json(
       { message: "Email sent.", success: true, status: 200 },

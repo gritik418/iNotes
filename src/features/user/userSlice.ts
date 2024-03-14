@@ -6,10 +6,10 @@ import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
-  loginLoading: false,
-  signupLoading: false,
+  loading: false,
   isLoggedIn: false,
   userData: {},
+  errors: {},
 };
 
 export const getUserAsync = createAsyncThunk("users/getUser", async () => {
@@ -44,10 +44,13 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(userSignupAsync.pending, (state, action) => {
-        state.signupLoading = true;
+        state.loading = true;
       })
       .addCase(userSignupAsync.fulfilled, (state, action) => {
-        state.signupLoading = false;
+        state.loading = false;
+        if (action.payload.errors) {
+          state.errors = action.payload.errors;
+        }
         if (action.payload.success) {
           toast.success(action.payload.message, {
             position: "top-right",
@@ -75,13 +78,16 @@ const userSlice = createSlice({
         }
       })
       .addCase(userSignupAsync.rejected, (state, action) => {
-        state.signupLoading = false;
+        state.loading = false;
       })
       .addCase(userLoginAsync.pending, (state, action) => {
-        state.loginLoading = true;
+        state.loading = true;
       })
       .addCase(userLoginAsync.fulfilled, (state, action) => {
-        state.loginLoading = false;
+        state.loading = false;
+        if (action.payload.errors) {
+          state.errors = action.payload.errors;
+        }
         if (action.payload.success) {
           state.isLoggedIn = true;
           toast.success(action.payload.message, {
@@ -111,7 +117,7 @@ const userSlice = createSlice({
         }
       })
       .addCase(userLoginAsync.rejected, (state, action) => {
-        state.loginLoading = false;
+        state.loading = false;
       })
       .addCase(getUserAsync.fulfilled, (state, action) => {
         if (action.payload.success) {
@@ -123,7 +129,10 @@ const userSlice = createSlice({
 });
 
 export const selectIsLoggedIn = (state: any) => state.user.isLoggedIn;
+export const selectLoading = (state: any) => state.user.loading;
 export const selectUser = (state: any) => state.user.userData;
+export const selectErrors = (state: any) => state.user.errors;
+
 export const { resetUser } = userSlice.actions;
 
 export default userSlice.reducer;
