@@ -32,7 +32,7 @@ const UserSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: `${process.env.NEXT_PUBLIC_DOMAIN}/images/avatar.png`,
+      default: `${process.env.NEXT_PUBLIC_DOMAIN}images/avatar.png`,
     },
   },
   { timestamps: true }
